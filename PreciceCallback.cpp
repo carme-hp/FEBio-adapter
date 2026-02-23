@@ -50,7 +50,9 @@ void PreciceCallback::Init(FEModel *fem) {
     	// Initialize precice mesh
     	this->vertexIDs.resize(this->numberOfVerticies);
     	this->precice->setMeshVertices(MESH_NAME, vertexPositions, this->vertexIDs);
-
+  		if (this->precice->requiresInitialData()) {
+    		this->WriteData(fem);
+		}
     	// Finish initializing precice
     	this->precice->initialize();
 

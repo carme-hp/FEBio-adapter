@@ -80,16 +80,16 @@ bool PreciceCallback::Execute(FEModel &fem, int nreason) {
     	    	    	fem.Serialize(this->dmp);
     	    	}
     	    	// advance timestep
-    	    	// this->dt = min(this->precice_dt, fem.GetCurrentStep()->m_dt);
-    	    	// feLogInfo("Current Simulation Time %f\n", fem.GetTime().currentTime);
-    	    	// feLogInfo("Timestep %f\n", this->dt);
-    	    	// fem.GetCurrentStep()->m_dt = this->dt;
+    	    	this->dt = this->precice->getMaxTimeStepSize();
+    	    	feLogInfo("Current Simulation Time %f\n", fem.GetTime().currentTime);
+    	    	feLogInfo("Timestep %f\n", this->dt);
+    	    	fem.GetCurrentStep()->m_dt = this->dt;
     	} else if (nreason == CB_MAJOR_ITERS) {
     	    	if (this->precice->isCouplingOngoing()) {
     	    	    	// Read and write precice data
     	    	    	this->ReadData(&fem);
     	    	    	this->WriteData(&fem);
-    	    	    	this->precice->advance(this->precice->getMaxTimeStepSize());
+    	    	    	this->precice->advance(this->dt);
     	    	    	if (this->precice->requiresReadingCheckpoint()) {
     	    	    	    	feLogInfo("CB_MAJOR_ITERS - Restoring Checkpoint\n");
     	    	    	    	// Restore

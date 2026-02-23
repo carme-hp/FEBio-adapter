@@ -3,3 +3,4 @@ mkdir build
 cd build
 cmake .. -DFEBio_SDK="~/FEBioStudio/sdk"
 make
+cd ..

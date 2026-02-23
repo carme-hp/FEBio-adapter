@@ -1,12 +1,21 @@
-# BFP Plugin for FEBio 
+# FEBio adapter
 
-This plugin enables the coupling of a simple muscle simulation using OpenDiHu and FEBio via preCICE.
-The preCICE coupling code is based on [an existing preCICE adapter for FEBio](https://github.com/precice/febio-adapter).
+This repository host an FEBio adapter for [preCICE](https://precice.org/). The adapter is compatible with preCICE v3. If you are using an older version of preCICE, this adapter will not work. An adapter compatible with preCICE v2 is [available](https://github.com/silasnatterer/bfp/tree/main).
+
+
+> **This is not a general FEBio adapter and it assumes that you are coupling FEBio to OpenDiHu.** This is also not the only adapter available for FEBio. The [experimental FEBio adapter](https://github.com/precice/febio-adapter) may be the way to go depending on your application. 
+
+The present FEBio adapter was originally developed by computer science students of the University of Stuttgart and it builds on the [experimental FEBio adapter](https://github.com/precice/febio-adapter). 
+
+## Prerequisites
+
+- [preCICE](https://precice.org/) version => 3.0.0
+- [OpenDiHu](https://github.com/opendihu/opendihu) version = 1.5
+- [FEBioStudio](https://github.com/febiosoftware/FEBioStudio) version <= 2.10
+
+Downloading the correct FEBioStudio version might be tricky. I recommend downloading the installer for version 2.10 which can be found under [previous versions](https://febio.org/downloads/#/). You will need to extract the installer and make it executable before running it. During the installation, choose the option to include SDK. 
 
 ## Installation
-The following dependencies are required:
-- [preCICE](https://precice.org/installation-overview.html)
-- [FEBio](https://febio.org/downloads/)
 
 For the adapter to link against the FEBio SKD successfully you have to perform the following steps:
 - Include the SDK when installing FEBio

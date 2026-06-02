@@ -1,11 +1,16 @@
-# FEBio adapter
+# The FEBio Adapter
 
-This repository host an FEBio adapter for [preCICE](https://precice.org/). The adapter is compatible with preCICE v3. If you are using an older version of preCICE, this adapter will not work. An adapter compatible with preCICE v2 is [available](https://github.com/silasnatterer/bfp/tree/main).
+Welcome to the FEBio adapter for [preCICE](https://precice.org/)!
+
+This adapter allows you to use preCICE v3 to run coupled electromechanics simulations for skeletal muscles, thereby enabling coupling between the FEBio's mechanics solver to the OpenDiHu electrophysiology solver. 
 
 
-> **This is not a general FEBio adapter and it assumes that you are coupling FEBio to OpenDiHu.** This is also not the only adapter available for FEBio. The [experimental FEBio adapter](https://github.com/precice/febio-adapter) may be the way to go depending on your application. 
+## Related work
 
-The present FEBio adapter was originally developed by computer science students of the University of Stuttgart and it builds on the [experimental FEBio adapter](https://github.com/precice/febio-adapter). 
+The code of this adapter was originally written by computer science students of the University of Stuttgart, and was later ported to preCICE v3. If you are using preCICE v2, we refer them to their [code](https://github.com/silasnatterer/bfp/tree/main).
+
+In a separated work effort, another FEBio adapter was developed for simulations of the liver. This [experimental FEBio adapter](https://github.com/precice/febio-adapter) may be the way to go depending on your application. 
+ 
 
 ## Prerequisites
 
@@ -15,23 +20,33 @@ The present FEBio adapter was originally developed by computer science students 
 
 Downloading the correct FEBioStudio version might be tricky. I recommend downloading the installer for version 2.10 which can be found under [previous versions](https://febio.org/downloads/#/). You will need to extract the installer and make it executable before running it. During the installation, choose the option to include SDK. 
 
-## Installation
+## Building
 
-For the adapter to link against the FEBio SKD successfully you have to perform the following steps:
-- Include the SDK when installing FEBio
-- Copy *FEBioStudio/lib* to *FEBioStudio/sdk/lib*
-- Clone the [FEBio git repository](https://github.com/febiosoftware/FEBio) (branch febio4)
-- Copy the folders *FEAMR, FEBio3, FEBioLib, FEBioOpt, FEBioPlot, FEBioRVE, FEBioTest, FEBioXML, FEImgLib, NumCore* and *XML* from the repository to *FEBioStudio/sdk/include*
-- Set the path in *build.sh* to your FEBio installation path
+To build the adapter, clone this repository and then do
 
-You should then be able to compile the plugin with CMake or by running the *build.sh* script.
-Then you have to add the following lines to your *FEBioStudio/bin/febio.xml*:
-```xml
-<import>pathToAdapter/build/lib/libBFPPlugin.so</import>
 ```
-You can also load the plugin in FEBioStudio under *FEBio->Manage FEBio Plugins*.
+mkdir build
+cd build
+cmake .. -DFEBio_SDK="path/to/FEBioStudio/sdk"
+make
+```
+
+Alternatively, you can simply run the script `build.sh`.
+
+## Load the Plug-In
+
+This step is needed so that FEBio finds the adapter. Basically, the adapter can be loaded as a plug-in in FEBioStudio. 
+
+- Option 1: Edit the `FEBioStudio/bin/febio.xml` file.
+
+```xml
+<import>pathToAdapter/build/lib/libAdapterPlugin.so</import>
+```
+
+- Option 2: Use the FEBioStudio's GUI. Go to *FEBio->Manage FEBio Plugins* and select `libAdapterPlugin.so`.
 
 ## Usage
+
 For the PreCICE coupling to work you have to add the following lines to your *model.feb* file 
 ```xml
 <Code>

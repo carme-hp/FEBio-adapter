@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(BFPPlugin)
+project(AdapterPlugin)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_FILES_DIRECTORY ${CMAKE_BINARY_DIR}/CMakeFiles)
@@ -161,12 +161,12 @@ include_directories(${FEBio_INC})
 
 ##### Add library #####
 
-file(GLOB HDR_BFPPlugin "*.h")
-file(GLOB SRC_BFPPlugin "*.cpp")
+file(GLOB HDR_AdapterPlugin "*.h")
+file(GLOB SRC_AdapterPlugin "*.cpp")
 
-add_library(BFPPlugin SHARED ${HDR_BFPPlugin} ${SRC_BFPPlugin})
-set_property(TARGET BFPPlugin PROPERTY AUTOGEN_BUILD_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/AutoGen/BFPPlugin_autogen)
+add_library(AdapterPlugin SHARED ${HDR_AdapterPlugin} ${SRC_AdapterPlugin})
+set_property(TARGET AdapterPlugin PROPERTY AUTOGEN_BUILD_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/AutoGen/AdapterPlugin_autogen)
 
 ##### Link Libraries #####
 
-target_link_libraries(BFPPlugin ${FECORE} ${FEBIOMIX} ${FEBIOFLUID}  ${FEBIOMECH} ${NUMCORE} ${FECORE} precice::precice ${FEBioTPM})
+target_link_libraries(AdapterPlugin ${FECORE} ${FEBIOMIX} ${FEBIOFLUID}  ${FEBIOMECH} ${NUMCORE} ${FECORE} precice::precice ${FEBioTPM})

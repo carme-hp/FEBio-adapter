@@ -2,14 +2,14 @@
 
 Welcome to the FEBio adapter for [preCICE](https://precice.org/)!
 
-This adapter allows you to use preCICE v3 to run coupled electromechanics simulations for skeletal muscles, thereby enabling coupling between the FEBio's mechanics solver to the OpenDiHu electrophysiology solver. 
+This adapter allows you to use preCICE v3 to run coupled electromechanics simulations for skeletal muscles, thereby enabling coupling between the FEBio's mechanics solver to the OpenDiHu electrophysiology solver. The repository [FEBio_cases](https://github.com/carme-hp/FEBio_cases/tree/main), provides multiple examples that rely on this adapter to run coupled OpenDiHu-FEBio simulations.
 
 
 ## Related work
 
-The code of this adapter was originally written by computer science students of the University of Stuttgart, and was later ported to preCICE v3. If you are using preCICE v2, we refer them to their [code](https://github.com/silasnatterer/bfp/tree/main).
+The code of this adapter was originally written by computer science students of the University of Stuttgart (Silas Natterer, Paul Arlt and Luis Morgenstern), and was later ported to preCICE v3. If you are using preCICE v2, we refer you to their [code](https://github.com/silasnatterer/bfp/tree/main).
 
-In a separated work effort, another FEBio adapter was developed for simulations of the liver. This [experimental FEBio adapter](https://github.com/precice/febio-adapter) may be the way to go depending on your application. 
+In a separated work effort, another [experimental FEBio adapter](https://github.com/precice/febio-adapter) was developed to support multi-scale simulations of the liver, which may be a better starting point depending on your application. 
  
 
 ## Prerequisites
@@ -83,10 +83,10 @@ Note that the following names are hardcoded in the plugin:
 - *Gamma*, *Geometry*: name of the preCICE fields to couple
 - *MusclePart*: name of the FEBio part to couple 
 
-By default the adapter will use *./precice-config.xml* for the preCICE configuration path.
-To change this, set the *BFP_CONFIG* environment variable.
+By default, the adapter assumes that the preCICE config file is given by `./../precice-config.xml`.
+To change this, set the `BFP_CONFIG` environment variable.
 You can then run the case with
 ```bash
-BFP_CONFIG="config" mpirun -n 1 FEBioStudio/bin/febio4 model.feb
+BFP_CONFIG="path to config file" mpirun -n 1 FEBioStudio/bin/febio4 model.feb
 ```
 

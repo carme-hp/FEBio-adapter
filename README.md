@@ -40,10 +40,10 @@ This step is needed so that FEBio finds the adapter. Basically, the adapter can 
 - Option 1: Edit the `FEBioStudio/bin/febio.xml` file.
 
 ```xml
-<import>pathToAdapter/build/lib/libAdapterPlugin.so</import>
+<import>pathToAdapter/build/lib/libFEBioAdapter.so</import>
 ```
 
-- Option 2: Use the FEBioStudio's GUI. Go to *FEBio->Manage FEBio Plugins* and select `libAdapterPlugin.so`.
+- Option 2: Use the FEBioStudio's GUI. Go to *FEBio->Manage FEBio Plugins* and select `libFEBioAdapter.so`.
 
 ## Usage
 
@@ -53,10 +53,10 @@ For the PreCICE coupling to work you have to add the following lines to your *mo
 	<callback name="precice_callback"\>
 </Code>
 ```
-In addition you have to change the material to use the custom *DiHuMaterial* and *DiHuContraction* classes
+In addition you have to change the material to use the custom *GammaMaterial* and *GammaContraction* classes
 ```xml
 <Material>
-	<material id="material_id" name="material_name" type="DiHuMaterial">
+	<material id="material_id" name="material_name" type="GammaMaterial">
 		<density>OpenDiHu density</density>
 		<k>1000</k>
 		<pressure_model>default</pressure_model>
@@ -69,7 +69,7 @@ In addition you have to change the material to use the custom *DiHuMaterial* and
 		<fiber type="vector">
 			<vector>Direction of fibers</vector>
 		</fiber>
-		<active_contraction type="DiHuContraction">
+		<active_contraction type="GammaContraction">
 			<pmax>OpenDiHu Pmax</pmax>
 			<lam_opt>1.2</lam_opt>
 			<enable_force_length_relation>1</enable_force_length_relation>

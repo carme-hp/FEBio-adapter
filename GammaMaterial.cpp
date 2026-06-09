@@ -1,24 +1,24 @@
-#include "DiHuMaterial.h"
+#include "GammaMaterial.h"
 
-BEGIN_FECORE_CLASS(DiHuMaterial, FETransIsoMooneyRivlin)
+BEGIN_FECORE_CLASS(GammaMaterial, FETransIsoMooneyRivlin)
 END_FECORE_CLASS();
 
-// Create DiHuMaterialPoint instead of FEElasticMaterialPoint
-FEMaterialPointData *DiHuMaterial::CreateMaterialPointData() {
-    	auto pt = new DiHuMaterialPoint;
+// Create GammaMaterialPoint instead of FEElasticMaterialPoint
+FEMaterialPointData *GammaMaterial::CreateMaterialPointData() {
+    	auto pt = new GammaMaterialPoint;
     	if (m_ac) pt->Append(m_ac->CreateMaterialPointData());
     	return pt;
 }
 
-BEGIN_FECORE_CLASS(DiHuContraction, FEActiveContractionMaterial)
+BEGIN_FECORE_CLASS(GammaContraction, FEActiveContractionMaterial)
 	ADD_PARAMETER(m_pmax, "pmax");
 	ADD_PARAMETER(m_lamOpt, "lam_opt");
 	ADD_PARAMETER(m_enableForceLengthRelation, "enable_force_length_relation");
 END_FECORE_CLASS();
 
-// Uses OpenDiHus active stress calculation
-mat3ds DiHuContraction::ActiveStress(FEMaterialPoint &mp, const vec3d &a0) {
-	DiHuMaterialPoint &pt = *mp.ExtractData<DiHuMaterialPoint>();
+// Uses Opengammas active stress calculation
+mat3ds GammaContraction::ActiveStress(FEMaterialPoint &mp, const vec3d &a0) {
+	GammaMaterialPoint &pt = *mp.ExtractData<GammaMaterialPoint>();
 
 	// get the deformation gradient
 	mat3d F = pt.m_F;
@@ -36,7 +36,7 @@ mat3ds DiHuContraction::ActiveStress(FEMaterialPoint &mp, const vec3d &a0) {
 	// calculate dyad of a: AxA = (a x a)
 	mat3ds AxA = dyad(a);
 
-	// Calculate active stress using OpenDiHus formula
+	// Calculate active stress using Opengammas formula
 	double lamRelative = lamd/m_lamOpt;
 	double f = 1.0;
 	if (m_enableForceLengthRelation
@@ -49,6 +49,6 @@ mat3ds DiHuContraction::ActiveStress(FEMaterialPoint &mp, const vec3d &a0) {
 }
 
 // Do not use active stiffness
-tens4ds DiHuContraction::ActiveStiffness(FEMaterialPoint &mp, const vec3d &a0) {
+tens4ds GammaContraction::ActiveStiffness(FEMaterialPoint &mp, const vec3d &a0) {
 	return tens4ds(0.0);
 }

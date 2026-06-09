@@ -3,31 +3,31 @@
 #include <FEBioMech/FEActiveContractionMaterial.h>
 
 /*
- * OpenDiHu Material Point
+ * Opengamma Material Point
  * Adds field m_gamma to FEElasticMaterialPoint
- * in order to couple with OpenDiHus FastMonodomainSolver
+ * in order to couple with Opengammas FastMonodomainSolver
  */ 
-class DiHuMaterialPoint 
+class GammaMaterialPoint 
 	: public FEElasticMaterialPoint
 {
 public:
-    	DiHuMaterialPoint(FEMaterialPointData *mp = nullptr)
+    	GammaMaterialPoint(FEMaterialPointData *mp = nullptr)
     	        : FEElasticMaterialPoint(mp), m_gamma(0) {}
 
     	double m_gamma; // coupling vatiable
 };
 
 /*
- * OpenDiHu Material
+ * Opengamma Material
  * Behaves the same as FETransIsoMooneyRivlin Material
- * but uses DiHuMaterialPoint instead of FEElasticMaterialPoint
+ * but uses GammaMaterialPoint instead of FEElasticMaterialPoint
  */
-class DiHuMaterial 
+class GammaMaterial 
 	: public FETransIsoMooneyRivlin
 {
 public:
 
-    	DiHuMaterial(FEModel *pfem) 
+    	GammaMaterial(FEModel *pfem) 
     	        : FETransIsoMooneyRivlin(pfem) {}
 
     	virtual FEMaterialPointData *CreateMaterialPointData() override;
@@ -36,23 +36,23 @@ public:
 };
 
 /*
- * OpenDiHu Active Contraction
- * Implements OpenDiHus active contraction model,
+ * Opengamma Active Contraction
+ * Implements Opengammas active contraction model,
  * see https://opendihu.readthedocs.io/en/latest/settings/muscle_contraction_solver.html
- * Use in combination with DiHuMaterial
+ * Use in combination with GammaMaterial
  */
-class DiHuContraction 
+class GammaContraction 
 	: public FEActiveContractionMaterial
 {
 public:
-    	DiHuContraction(FEModel *pfem)
+    	GammaContraction(FEModel *pfem)
     	        : FEActiveContractionMaterial(pfem) {}
 
     	virtual mat3ds ActiveStress(FEMaterialPoint &mp, const vec3d &a0) override;
     	virtual tens4ds ActiveStiffness(FEMaterialPoint &mp, const vec3d &a0) override;
 
     	double m_pmax; 				// maximum PK2 active stress
-	double m_lamOpt; 			// 1.2 constant in OpenDiHu
+	double m_lamOpt; 			// 1.2 constant in Opengamma
 	bool m_enableForceLengthRelation; 	// whether f(lam/lam_opt) should be multiplied
  
     	DECLARE_FECORE_CLASS();

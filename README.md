@@ -2,7 +2,7 @@
 
 Welcome to the FEBio adapter for [preCICE](https://precice.org/)!
 
-This adapter allows you to use preCICE v3 to run coupled electromechanics simulations for skeletal muscles, thereby enabling coupling between the FEBio's mechanics solver to the OpenDiHu electrophysiology solver. The repository [FEBio_cases](https://github.com/carme-hp/FEBio_cases/tree/main), provides multiple examples that rely on this adapter to run coupled OpenDiHu-FEBio simulations.
+This adapter allows you to use preCICE v3 to run coupled electromechanics simulations for skeletal muscles, thereby enabling coupling between the FEBio's mechanics solver to the OpenDiHu electrophysiology solver. Multiple examples that rely on this adapter to run coupled OpenDiHu-FEBio simulations can be found [here](https://github.com/carme-hp/FEBio_cases/tree/main).
 
 
 ## Related work

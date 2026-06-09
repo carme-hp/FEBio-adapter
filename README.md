@@ -2,7 +2,7 @@
 
 Welcome to the FEBio adapter for [preCICE](https://precice.org/)!
 
-This adapter allows you to use preCICE v3 to run coupled electromechanics simulations for skeletal muscles, thereby enabling coupling between the FEBio's mechanics solver to the Opengamma electrophysiology solver. 
+This adapter allows you to use preCICE v3 to run coupled electromechanics simulations for skeletal muscles, thereby enabling coupling between the FEBio's mechanics solver to the OpenDiHu electrophysiology solver. 
 
 
 ## Related work
@@ -15,7 +15,7 @@ In a separated work effort, another FEBio adapter was developed for simulations 
 ## Prerequisites
 
 - [preCICE](https://precice.org/) version => 3.0.0
-- [Opengamma](https://github.com/opendihu/opendihu) version = 1.5
+- [OpenDiHu](https://github.com/opendihu/opendihu) version = 1.5
 - [FEBioStudio](https://github.com/febiosoftware/FEBioStudio) version <= 2.10
 
 Downloading the correct FEBioStudio version might be tricky. I recommend downloading the installer for version 2.10 which can be found under [previous versions](https://febio.org/downloads/#/). You will need to extract the installer and make it executable before running it. During the installation, choose the option to include SDK. 
@@ -40,39 +40,38 @@ This step is needed so that FEBio finds the adapter. Basically, the adapter can 
 - Option 1: Edit the `FEBioStudio/bin/febio.xml` file.
 
 ```xml
-<import>pathToAdapter/build/lib/libAdapterPlugIn.so</import>
+<import>pathToAdapter/build/lib/libpreCICEAdapter.so</import>
 ```
 
-- Option 2: Use the FEBioStudio's GUI. Go to *FEBio->Manage FEBio PlugIns* and select `libAdapterPlugIn.so`.
+- Option 2: Use the FEBioStudio's GUI. Go to *FEBio->Manage FEBio Plugins* and select `libpreCICEAdapter.so`.
 
 ## Usage
 
 For the PreCICE coupling to work you have to add the following lines to your *model.feb* file 
 ```xml
 <Code>
-	<callback name="preCICEAdapter"\>
+	<callback name="precice_callback"\>
 </Code>
 ```
-In addition, you have to change the material to use the custom *GammaMaterial* and *gammaContraction* classes. Otherwise the solver will not use the activation parameter gamma given by preCICE.
-
+In addition you have to change the material to use the custom *DiHuMaterial* and *DiHuContraction* classes
 ```xml
 <Material>
-	<material id="material_id" name="material_name" type="GammaMaterial">
-		<density> density</density>
+	<material id="material_id" name="material_name" type="DiHuMaterial">
+		<density>OpenDiHu density</density>
 		<k>1000</k>
 		<pressure_model>default</pressure_model>
-		<c1> c1 </c1>
-		<c2> c2 </c2>
-		<c3> c3 </c3>
-		<c4> c4</c4>
-		<c5> c5</c5>
-		<lam_max> lammax</lam_max>
+		<c1>OpenDiHu c1</c1>
+		<c2>OpenDiHu c2</c2>
+		<c3>0</c3>
+		<c4>1</c4>
+		<c5>OpenDiHu b</c5>
+		<lam_max>1</lam_max>
 		<fiber type="vector">
 			<vector>Direction of fibers</vector>
 		</fiber>
-		<active_contraction type="gammaContraction">
-			<pmax> Pmax</pmax>
-			<lam_opt> lamopt </lam_opt>
+		<active_contraction type="DiHuContraction">
+			<pmax>OpenDiHu Pmax</pmax>
+			<lam_opt>1.2</lam_opt>
 			<enable_force_length_relation>1</enable_force_length_relation>
 		</active_contraction>
 	</material>

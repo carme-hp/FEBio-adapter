@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(AdapterPlugIn)
+project(preCICEAdapter)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_FILES_DIRECTORY ${CMAKE_BINARY_DIR}/CMakeFiles)
@@ -161,12 +161,12 @@ include_directories(${FEBio_INC})
 
 ##### Add library #####
 
-file(GLOB HDR_AdapterPlugIn "*.h")
-file(GLOB SRC_AdapterPlugIn "*.cpp")
+file(GLOB HDR_preCICEAdapter "*.h")
+file(GLOB SRC_preCICEAdapter "*.cpp")
 
-add_library(AdapterPlugIn SHARED ${HDR_AdapterPlugIn} ${SRC_AdapterPlugIn})
-set_property(TARGET AdapterPlugIn PROPERTY AUTOGEN_BUILD_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/AutoGen/AdapterPlugIn_autogen)
+add_library(preCICEAdapter SHARED ${HDR_preCICEAdapter} ${SRC_preCICEAdapter})
+set_property(TARGET preCICEAdapter PROPERTY AUTOGEN_BUILD_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/AutoGen/preCICEAdapter_autogen)
 
 ##### Link Libraries #####
 
-target_link_libraries(AdapterPlugIn ${FECORE} ${FEBIOMIX} ${FEBIOFLUID}  ${FEBIOMECH} ${NUMCORE} ${FECORE} precice::precice ${FEBioTPM})
+target_link_libraries(preCICEAdapter ${FECORE} ${FEBIOMIX} ${FEBIOFLUID}  ${FEBIOMECH} ${NUMCORE} ${FECORE} precice::precice ${FEBioTPM})

@@ -3,7 +3,7 @@
 #include <FECore/FEMaterialPoint.h>
 #include <FECore/FETimeStepController.h>
 #include <FEBioMech/FEElasticMaterialPoint.h>
-#include "GammaMaterial.h"
+#include "DiHuMaterial.h"
 
 // Get number of material points and their initial position
 std::pair<int, vector<double>> PreciceCallback::getRelevantMaterialPoints(FEModel *fem, const std::string &elementName) {
@@ -129,9 +129,9 @@ void PreciceCallback::ReadData(FEModel *fem) {
     	    	    	FEElement &element = elementSet->Element(i);
     	    	    	for (int j = 0; j < element.GaussPoints(); j++) {
     	    	    	    	FEMaterialPoint *materialPoint = element.GetMaterialPoint(j);
-				auto elastic = materialPoint->ExtractData<GammaMaterialPoint>();
+				auto elastic = materialPoint->ExtractData<DiHuMaterialPoint>();
 				if (elastic == nullptr) {
-    	    				throw FEException("MaterialPoint is not an instance of GammaMaterialPoint");
+    	    				throw FEException("MaterialPoint is not an instance of DiHuMaterialPoint");
 				}
 				elastic->m_gamma = data[counter];
     	    	    	    	counter++;

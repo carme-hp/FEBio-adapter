@@ -10,14 +10,14 @@ FEMaterialPointData *GammaMaterial::CreateMaterialPointData() {
     	return pt;
 }
 
-BEGIN_FECORE_CLASS(gammaContraction, FEActiveContractionMaterial)
+BEGIN_FECORE_CLASS(GammaContraction, FEActiveContractionMaterial)
 	ADD_PARAMETER(m_pmax, "pmax");
 	ADD_PARAMETER(m_lamOpt, "lam_opt");
 	ADD_PARAMETER(m_enableForceLengthRelation, "enable_force_length_relation");
 END_FECORE_CLASS();
 
 // Uses Opengammas active stress calculation
-mat3ds gammaContraction::ActiveStress(FEMaterialPoint &mp, const vec3d &a0) {
+mat3ds GammaContraction::ActiveStress(FEMaterialPoint &mp, const vec3d &a0) {
 	GammaMaterialPoint &pt = *mp.ExtractData<GammaMaterialPoint>();
 
 	// get the deformation gradient
@@ -49,6 +49,6 @@ mat3ds gammaContraction::ActiveStress(FEMaterialPoint &mp, const vec3d &a0) {
 }
 
 // Do not use active stiffness
-tens4ds gammaContraction::ActiveStiffness(FEMaterialPoint &mp, const vec3d &a0) {
+tens4ds GammaContraction::ActiveStiffness(FEMaterialPoint &mp, const vec3d &a0) {
 	return tens4ds(0.0);
 }

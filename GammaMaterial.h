@@ -41,11 +41,11 @@ public:
  * see https://opendihu.readthedocs.io/en/latest/settings/muscle_contraction_solver.html
  * Use in combination with GammaMaterial
  */
-class gammaContraction 
+class GammaContraction 
 	: public FEActiveContractionMaterial
 {
 public:
-    	gammaContraction(FEModel *pfem)
+    	GammaContraction(FEModel *pfem)
     	        : FEActiveContractionMaterial(pfem) {}
 
     	virtual mat3ds ActiveStress(FEMaterialPoint &mp, const vec3d &a0) override;

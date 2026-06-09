@@ -2,7 +2,7 @@
 
 #include <FECore/sdk.h>
 #include "PreciceCallback.h"
-#include "DiHuMaterial.h"
+#include "GammaMaterial.h"
 
 FECORE_PLUGIN int GetSDKVersion()
 {
@@ -22,7 +22,7 @@ FECORE_PLUGIN void PluginInitialize(FECoreKernel &fecore)
 	// register adapter callback
    	REGISTER_FECORE_CLASS(PreciceCallback, "precice_callback");
 	// register custom material
-    	REGISTER_FECORE_CLASS(DiHuMaterial, "DiHuMaterial");
+    	REGISTER_FECORE_CLASS(GammaMaterial, "GammaMaterial");
 	// register custom contraction
-	REGISTER_FECORE_CLASS(DiHuContraction, "DiHuContraction");
+	REGISTER_FECORE_CLASS(GammaContraction, "GammaContraction");
 }
